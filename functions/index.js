@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const { createClient } = require("@supabase/supabase-js");
-const functions = require("firebase-functions");
 
 const app = express();
 app.use(cors({ origin: true }));
@@ -53,5 +52,8 @@ app.delete("/cardapio/:id", async (req, res) => {
   res.json({ success: true });
 });
 
-// === Exporta para Firebase Functions ===
-exports.api = functions.https.onRequest(app);
+// ===== Inicia servidor (Render precisa disso) =====
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
